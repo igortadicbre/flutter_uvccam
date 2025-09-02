@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_uvc_camera/flutter_uvc_camera.dart';
+import '../flutter_uvc_camera.dart';
 
 /// Controller for UVC camera operations
 class UVCCameraController {
