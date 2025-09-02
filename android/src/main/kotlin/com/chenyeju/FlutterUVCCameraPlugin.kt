@@ -85,6 +85,13 @@ class FlutterUVCCameraPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             // Basic camera operations
+
+            "startCamera" -> {
+                // Alias for opening the UVC camera
+                mUVCCameraViewFactory.openUVCCamera()
+                result.success(null)
+            }
+            
             "initializeCamera" -> {
                 mUVCCameraViewFactory.initCamera()
                 result.success(null)
