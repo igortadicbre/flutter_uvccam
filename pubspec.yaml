@@ -1,4 +1,4 @@
-name: flutter_uvccam
+name: flutter_uvc_camera
 description: Flutter plugin, allowing apps in the Flutter project to use UVC cameras connected to the device.
 version: 1.0.0
 homepage: https://github.com/chenyeju295/flutter_uvc_camera
