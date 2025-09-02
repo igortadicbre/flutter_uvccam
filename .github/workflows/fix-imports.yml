@@ -13,8 +13,10 @@ permissions:
 jobs:
   fix-imports:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -22,19 +24,21 @@ jobs:
         run: |
           echo "Fixing imports..."
           if [ -d lib/src ]; then
-            # package->relative
             find lib/src -type f -name "*.dart" -exec sed -i \
               "s#import 'package:flutter_uvc_camera/flutter_uvc_camera.dart';#import '../flutter_uvc_camera.dart';#g" {} \;
           fi
 
-      - name: Create PR with changes
+      - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "ci: auto-fix imports to ../flutter_uvc_camera.dart"
           branch: ci/fix-imports-${{ github.run_id }}
           title: "CI: Fix imports to relative path"
-          body: "Automatska izmena import linija iz `package:flutter_uvc_camera/...` u `../flutter_uvc_camera.dart`."
+          body: |
+            Automatska izmena import linija:
+            - `package:flutter_uvc_camera/flutter_uvc_camera.dart`
+            ➜ `../flutter_uvc_camera.dart`
           labels: ci, automated
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
