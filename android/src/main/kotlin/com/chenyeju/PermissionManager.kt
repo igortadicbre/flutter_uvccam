@@ -21,7 +21,7 @@ class PermissionManager {
             val hasCameraPermission = PermissionChecker.checkSelfPermission(
                 context,
                 Manifest.permission.CAMERA
-            
+            )
             return hasCameraPermission == PermissionChecker.PERMISSION_GRANTED
         }
         
