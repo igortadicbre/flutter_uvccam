@@ -1,0 +1,34 @@
+name: Fix flutter_uvc_camera imports
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  fix-imports:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Replace old imports with relative imports
+        run: |
+          echo "Fixing imports..."
+          # Traži sve .dart fajlove unutar lib/src i menja package import u relativni import
+          find lib/src -type f -name "*.dart" -exec sed -i "s#import 'package:flutter_uvc_camera/flutter_uvc_camera.dart';#import '../flutter_uvc_camera.dart';#g" {} \;
+
+      - name: Commit changes if any
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add lib/src
+            git commit -m "ci: auto-fix flutter_uvc_camera imports to relative path"
+            git push
+          else
+            echo "No changes needed"
+          fi
